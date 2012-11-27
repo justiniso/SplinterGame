@@ -43,7 +43,7 @@ if(level==1){
 		y: 300,
 		hitRadius: 5, 
 		angle: 0,
-		speed: 5
+		speed: 40
 	});
 
 	goal = new GameObject({
@@ -59,84 +59,84 @@ if(level==1){
 		new Urchin({
 			x:100,
 			y: 100,
-			rotateSpeed: 0.01,
+			rotateSpeed: 0.001,
 			hitRadius: 4,
 			arms: [
-				new Arm({length: 50, angle: 0.11*Math.PI, growSpeed: 0.9}),
-				new Arm({length: 80, angle: 0.28*Math.PI, growSpeed: 0.8}),
-				new Arm({length: 20, angle: 0.35*Math.PI, growSpeed: 0.6}),
-				new Arm({length: 30, angle: 0.48*Math.PI, growSpeed: 0.7}),
-				new Arm({length: 50, angle: 0.91*Math.PI, growSpeed: 0.9}),
-				new Arm({length: 30, angle: 0.99*Math.PI, growSpeed: 0.7})
+				new Arm({length: 50, angle: 0.11*Math.PI, growSpeed: 0.09}),
+				new Arm({length: 80, angle: 0.28*Math.PI, growSpeed: 0.08}),
+				new Arm({length: 20, angle: 0.35*Math.PI, growSpeed: 0.06}),
+				new Arm({length: 30, angle: 0.48*Math.PI, growSpeed: 0.07}),
+				new Arm({length: 50, angle: 0.91*Math.PI, growSpeed: 0.09}),
+				new Arm({length: 30, angle: 0.99*Math.PI, growSpeed: 0.07})
 
 		]}),
 
 		new Urchin({
 			x:200,
 			y: 200,
-			rotateSpeed: -0.005,
+			rotateSpeed: -0.002,
 			hitRadius: 4,
 			arms: [
-				new Arm({length: 20, angle: 1.4*Math.PI, growSpeed: 0.8}),
-				new Arm({length: 10, angle: 1.7*Math.PI, growSpeed: 0.1}),
-				new Arm({length: 30, angle: 2.2*Math.PI, growSpeed: 0.1}),
-				new Arm({length: 20, angle: 2.6*Math.PI, growSpeed: 0.2}),
-				new Arm({length: 10, angle: 3.2*Math.PI, growSpeed: 0.4})
+				new Arm({length: 20, angle: 1.4*Math.PI, growSpeed: 0.08}),
+				new Arm({length: 10, angle: 1.7*Math.PI, growSpeed: 0.01}),
+				new Arm({length: 30, angle: 2.2*Math.PI, growSpeed: 0.01}),
+				new Arm({length: 20, angle: 2.6*Math.PI, growSpeed: 0.02}),
+				new Arm({length: 10, angle: 3.2*Math.PI, growSpeed: 0.04})
 		]}),
 
 		new Urchin({
 			x:375,
 			y: 125,
-			rotateSpeed: -0.005,
+			rotateSpeed: -0.002,
 			hitRadius: 4,
 			arms: [
-				new Arm({length: 80, angle: 1.4*Math.PI, growSpeed: 0.8}),
-				new Arm({length: 90, angle: 1.7*Math.PI, growSpeed: 0.1}),
-				new Arm({length: 110, angle: 2.2*Math.PI, growSpeed: 0.1}),
-				new Arm({length: 100, angle: 2.6*Math.PI, growSpeed: 0.2}),
-				new Arm({length: 90, angle: 3.2*Math.PI, growSpeed: 0.4})
+				new Arm({length: 80, angle: 1.4*Math.PI, growSpeed: 0.08}),
+				new Arm({length: 90, angle: 1.7*Math.PI, growSpeed: 0.01}),
+				new Arm({length: 110, angle: 2.2*Math.PI, growSpeed: 0.01}),
+				new Arm({length: 100, angle: 2.6*Math.PI, growSpeed: 0.02}),
+				new Arm({length: 90, angle: 3.2*Math.PI, growSpeed: 0.04})
 		]}),
 
 		new Urchin({
 			x:500,
 			y: 400,
-			rotateSpeed: -0.005,
+			rotateSpeed: -0.002,
 			hitRadius: 4,
 			arms: [
-				new Arm({length: 40, angle: 0.1*Math.PI, growSpeed: 0.3}),
-				new Arm({length: 80, angle: 0.15*Math.PI, growSpeed: 0.1}),
-				new Arm({length: 50, angle: 0.3*Math.PI, growSpeed: 0.1}),
-				new Arm({length: 60, angle: 0.35*Math.PI, growSpeed: 0.2}),
-				new Arm({length: 80, angle: 1.3*Math.PI, growSpeed: 0.1}),
-				new Arm({length: 40, angle: 1.5*Math.PI, growSpeed: 0.2}),
-				new Arm({length: 30, angle: 1.7*Math.PI, growSpeed: 0.4})
+				new Arm({length: 40, angle: 0.1*Math.PI, growSpeed: 0.03}),
+				new Arm({length: 80, angle: 0.15*Math.PI, growSpeed: 0.01}),
+				new Arm({length: 50, angle: 0.3*Math.PI, growSpeed: 0.01}),
+				new Arm({length: 60, angle: 0.35*Math.PI, growSpeed: 0.02}),
+				new Arm({length: 80, angle: 1.3*Math.PI, growSpeed: 0.01}),
+				new Arm({length: 40, angle: 1.5*Math.PI, growSpeed: 0.02}),
+				new Arm({length: 30, angle: 1.7*Math.PI, growSpeed: 0.04})
 		]}),
 
 		new Urchin({
 			x:400,
 			y: 500,
-			rotateSpeed: -0.01,
+			rotateSpeed: -0.001,
 			hitRadius: 4,
 			arms: [
-				new Arm({length: 60, angle: 0.4*Math.PI, growSpeed: 0.4}),
-				new Arm({length: 50, angle: 1.2*Math.PI, growSpeed: 0.1}),
-				new Arm({length: 40, angle: 1.7*Math.PI, growSpeed: 0.1}),
-				new Arm({length: 50, angle: 1.9*Math.PI, growSpeed: 0.2}),
-				new Arm({length: 60, angle: 3.4*Math.PI, growSpeed: 0.3}),
+				new Arm({length: 60, angle: 0.4*Math.PI, growSpeed: 0.04}),
+				new Arm({length: 50, angle: 1.2*Math.PI, growSpeed: 0.01}),
+				new Arm({length: 40, angle: 1.7*Math.PI, growSpeed: 0.01}),
+				new Arm({length: 50, angle: 1.9*Math.PI, growSpeed: 0.02}),
+				new Arm({length: 60, angle: 3.4*Math.PI, growSpeed: 0.03}),
 		]}),
 
 		new Urchin({
 			x:100,
 			y: 450,
-			rotateSpeed: 0.01,
+			rotateSpeed: 0.001,
 			hitRadius: 4,
 			arms: [
-				new Arm({length: 10, angle: 0.11*Math.PI, growSpeed: 0.9}),
-				new Arm({length: 10, angle: 0.28*Math.PI, growSpeed: 0.8}),
-				new Arm({length: 10, angle: 0.35*Math.PI, growSpeed: 0.6}),
-				new Arm({length: 10, angle: 0.48*Math.PI, growSpeed: 0.7}),
-				new Arm({length: 10, angle: 0.91*Math.PI, growSpeed: 0.9}),
-				new Arm({length: 10, angle: 0.99*Math.PI, growSpeed: 0.7})
+				new Arm({length: 10, angle: 0.11*Math.PI, growSpeed: 0.09}),
+				new Arm({length: 10, angle: 0.28*Math.PI, growSpeed: 0.08}),
+				new Arm({length: 10, angle: 0.35*Math.PI, growSpeed: 0.06}),
+				new Arm({length: 10, angle: 0.48*Math.PI, growSpeed: 0.07}),
+				new Arm({length: 10, angle: 0.91*Math.PI, growSpeed: 0.09}),
+				new Arm({length: 10, angle: 0.99*Math.PI, growSpeed: 0.07})
 
 		]})
 	];
@@ -337,6 +337,10 @@ function step() {
 
 
 function main() {
+	var now = Date.now();
+	var delta = now - then;
+	var modifier = delta/1000;
+
 	step();
 
 	if( collision() ){
@@ -346,16 +350,16 @@ function main() {
 	var shiftVect = {x: 0, y: 0};
 
 	if(38 in keysDown) { //Up key
-		shiftVect.y = player.speed;
+		shiftVect.y = player.speed * modifier;
 	}
 	if(40 in keysDown) { //down key
-		shiftVect.y = (-1)*player.speed;
+		shiftVect.y = (-1)*player.speed * modifier;
 	}
 	if(37 in keysDown) { //left key
-		shiftVect.x = player.speed;
+		shiftVect.x = player.speed * modifier;
 	}
 	if(39 in keysDown) { //Up key
-		shiftVect.x = (-1)*player.speed;
+		shiftVect.x = (-1)*player.speed * modifier;
 	}
 
 	// shift all other objects excluding player
@@ -364,6 +368,8 @@ function main() {
 	}
 
 	levelLogicLoop();
+
+	then = now;
 }
 
 
@@ -375,4 +381,5 @@ addEventListener("keyup", function(e) {
 	delete keysDown[e.keyCode];
 }, false);
 
-var loop = setInterval(main, 100);
+var then = Date.now();
+var loop = setInterval(main, 1);
