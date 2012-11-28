@@ -349,6 +349,43 @@ function main() {
 
 	var shiftVect = {x: 0, y: 0};
 
+
+
+	if(motionDevice){
+		var motionCorrection = 10;
+		var speedCorrection = 10;
+
+		if(player.speed/speedCorrection < 1){
+			speedCorrection = 1;
+		}
+
+
+
+		if(gamma >= 0) {
+			shiftVect.x = (player.speed/speedCorrection) * (-1)*(gamma/motionCorrection); 
+		}
+
+		if(gamma < 0) {
+			shiftVect.x = (player.speed/speedCorrection) * (-1)*(gamma/motionCorrection);
+		}
+
+		if(beta >= 0) {
+			shiftVect.y = (player.speed/speedCorrection) * (-1)*(beta/motionCorrection); 
+		}
+
+		if(beta < 0) {
+			shiftVect.y = (player.speed/speedCorrection) * (-1)*(beta/motionCorrection);
+		}
+
+
+	}
+
+
+
+
+
+
+
 	if(38 in keysDown) { //Up key
 		shiftVect.y = player.speed * modifier;
 	}
