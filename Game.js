@@ -312,7 +312,6 @@ function collision() {
 				return true;
 			}
 
-			/* Omitted due to unknown bug (not detecting collisions properly), efficiency not primary concern
 			// if player is outside outer bounding box of the arm, do not run collision detection 
 			// calculations (inefficient)
 			if(arm.x < (player.x-player.hitRadius) && endPoints.x < (player.x-player.hitRadius) ||
@@ -336,7 +335,6 @@ function collision() {
 					}
 				}
 			}
-			*/
 
 		}
 	}
