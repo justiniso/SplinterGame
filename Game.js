@@ -4,30 +4,32 @@
 // test implementation of the game objects
 
 // globals
-var canvas,
-	ctx,
-	player,
-	goal,
-	enemies,
-	items;
+var canvas;
+var ctx;
 
-// contains all objects on the level, player is always first
+// game objects
+var player;
+var goals = [];
+var enemies = [];
+var items = [];
+var decorations = [];
 var allObjects = [];
+
 var possibleCollisions = [];
 
+
+// for game controls
 var keysDown = {};
 
+
+// for game levels
 var level = 1;
-
-// a function to execute before each level
-var levelLogicBefore = function() {};
-
-// a function to execute every time the loop is called
-var levelLogicLoop = function() {};
+var levelLogicBefore = function() {}; // a function to execute before each level
+var levelLogicLoop = function() {}; // a function to execute every time the loop is called
 
 
 
-
+// basic canvas setup
 canvas = document.getElementById('main-canvas');
 ctx = canvas.getContext('2d');
 ctx.clearRect(0,0, canvas.width, canvas.height);
@@ -46,12 +48,14 @@ if(level==1){
 		speed: 40
 	});
 
-	goal = new GameObject({
-		x: 550,
-		y: 550,
-		hitRadius: 10,
-		angle: 0
-	});
+	goals = [
+		new GameObject({
+			x: 550,
+			y: 550,
+			hitRadius: 10,
+			angle: 0
+		})
+	];
 
 	items = [];
 
@@ -59,15 +63,17 @@ if(level==1){
 		new Urchin({
 			x:100,
 			y: 100,
-			rotateSpeed: 0.001,
+			rotateSpeed: 0.000,
 			hitRadius: 4,
+			activeRadius: 110,
+			explodeToLength: 200,
 			arms: [
-				new Arm({length: 50, angle: 0.11*Math.PI, growSpeed: 0.09}),
-				new Arm({length: 80, angle: 0.28*Math.PI, growSpeed: 0.08}),
-				new Arm({length: 20, angle: 0.35*Math.PI, growSpeed: 0.06}),
-				new Arm({length: 30, angle: 0.48*Math.PI, growSpeed: 0.07}),
-				new Arm({length: 50, angle: 0.91*Math.PI, growSpeed: 0.09}),
-				new Arm({length: 30, angle: 0.99*Math.PI, growSpeed: 0.07})
+				new Arm({length: 10, angle: 0.11*Math.PI, growSpeed: 0.05, explodeLength: 100}),
+				new Arm({length: 10, angle: 0.28*Math.PI, growSpeed: 0.05, explodeLength: 100}),
+				new Arm({length: 10, angle: 0.35*Math.PI, growSpeed: 0.05, explodeLength: 100}),
+				new Arm({length: 10, angle: 0.48*Math.PI, growSpeed: 0.05, explodeLength: 100}),
+				new Arm({length: 10, angle: 0.91*Math.PI, growSpeed: 0.05, explodeLength: 100}),
+				new Arm({length: 10, angle: 0.99*Math.PI, growSpeed: 0.05, explodeLength: 100})
 
 		]}),
 
@@ -142,8 +148,8 @@ if(level==1){
 	];
 
 	// add all of the objects into one array
-	allObjects = [player, goal];
-	allObjects = allObjects.concat(enemies);
+	allObjects = [player];
+	allObjects = allObjects.concat(goals, enemies, items, decorations);
 }
 
 
@@ -223,6 +229,12 @@ var Render = {
 		this.circle(ctx, goal.x, goal.y, goal.hitRadius);
 	},
 
+	allGoals: function(ctx, goals) {
+		for(var i=0; i<goals.length; i++){
+			this.goal(ctx, goals[i]);
+		}
+	},
+
 	urchin: function(ctx, urchin) {
 		var origin = urchin.vector();
 
@@ -236,6 +248,7 @@ var Render = {
 			var arm = urchin.arms[i];
 			var armEnd = arm.end();
 
+			// draw a long triangle
 			ctx.beginPath();
 			ctx.moveTo(origin.x, origin.y);
 			ctx.moveTo(origin.x+1, origin.y+1);
@@ -256,19 +269,45 @@ var Render = {
 	}
 };
 
+
+// methods for handling a collision with the player
+var CollisionHandler = {
+
+	urchinProximityTouched: function(player, urch) {
+		if(urch.activeRadius > 0){
+			urch.explode();
+		}
+	},
+
+	urchinBodyTouched: function(player, urch) {
+
+	},
+
+	urchinArmTouched: function(player, arm) {
+
+	}
+
+};
+
 function collision() {
 	possibleCollisions = [];
 
-	// check enemies
+	// check enemies (urchins)
 	for(var i=0; i<enemies.length; i++){
+		var enemy = enemies[i];
+		var distToBody = Distance.dist(player.vector(), enemy.vector());
+
+		if(distToBody < enemy.activeRadius){
+			CollisionHandler.urchinProximityTouched(player, enemy);
+		}
 
 		// check enemies' arms
 		for(var j=0; j<enemies[i].arms.length; j++){
 			var arm = enemies[i].arms[j];
 			var endPoints = arm.end();
-			var distToPlayer = Distance.distToLineSegment( player.vector(), arm.origin(), arm.end() );
+			var distToArm = Distance.distToLineSegment( player.vector(), arm.origin(), arm.end() );
 
-			if( distToPlayer < player.hitRadius ){
+			if( distToArm < player.hitRadius ){
 				alert("collision!");
 				return true;
 			}
@@ -308,10 +347,14 @@ function collision() {
 	}
 
 
-	// check goal
-	if(Distance.dist(player.vector(), goal.vector()) < (player.hitRadius+goal.hitRadius) ){
-		alert("win");
-		return true;
+	// check goals
+	for(var i=0; i<goals.length; i++){
+		var goal = goals[i];
+
+		if(Distance.dist(player.vector(), goal.vector()) < (player.hitRadius+goal.hitRadius) ){
+			alert("win");
+			return true;
+		}
 	}
 
 
@@ -329,9 +372,9 @@ function step() {
 		enemies[i].step();
 	}
 
-	// render the player, goal, and enemies
+	// render the player, goals, and enemies
 	Render.player(ctx, player);
-	Render.goal(ctx, goal);
+	Render.allGoals(ctx, goals);
 	Render.allUrchins(ctx, enemies);
 }
 

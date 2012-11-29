@@ -105,7 +105,11 @@ var Urchin = Class.create(Character, {
 		this.rotateSpeed = spec.rotateSpeed || 0;
 
 		// the distance from the player at which the special behavior activates
-		this.activeProximity = spec.activeProximity || 0;
+		this.activeRadius = spec.activeRadius || 0;
+
+		this.exploded = false;
+		this.explodeToLength = spec.explodeToLength || null;
+		this.explodeByLength = spec.explodeByLength || null;
 
 		this.arms = spec.arms || [];	// stores the actual arms
 		this.initialArmLengths = [];
@@ -129,9 +133,19 @@ var Urchin = Class.create(Character, {
 	},
 
 	explode: function() {
-		for(var i=0; i<this.arms.length; i++){
-			var arm = this.arms[i];
-			arm.length = arm.explodeLength;
+		if(!this.exploded){
+			if(this.explodeToLength){
+				this.explodeTo(this.explodeToLength);
+			} else if (this.explodeByLength) {
+				this.explodeBy(this.explodeByLength);
+				this.explodeByLength = 0; // have to reset so it does not continue to expand
+			} else {
+				for(var i=0; i<this.arms.length; i++){
+					var arm = this.arms[i];
+					arm.length = arm.explodeLength;
+				}
+			}
+			this.exploded = true;
 		}
 	}, 
 
@@ -194,8 +208,8 @@ var Arm = Class.create(Character, {
 		this.body;	// the arms's parent body
 		this.length = spec.length || 0;
 		this.growSpeed = spec.growSpeed || 0;
-		this.explodeLength = this.explodeLength || 0;
-		this.implodeLength = this.implodeLength || 0;
+		this.explodeLength = spec.explodeLength || 0;
+		this.implodeLength = spec.implodeLength || 0;
 
 	},
 
