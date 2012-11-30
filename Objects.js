@@ -104,6 +104,8 @@ var Urchin = Class.create(Character, {
 		// 0 = no rotation, (+) = clockwise, (-) = counterclockwise
 		this.rotateSpeed = spec.rotateSpeed || 0;
 
+		// determines whether the urchin grows, rotates, etc. when instantiated
+		this.active = spec.active==undefined ? true : spec.active;
 		// the distance from the player at which the special behavior activates
 		this.activeRadius = spec.activeRadius || 0;
 
@@ -146,6 +148,7 @@ var Urchin = Class.create(Character, {
 				}
 			}
 			this.exploded = true;
+			this.active = true;
 		}
 	}, 
 
@@ -171,25 +174,31 @@ var Urchin = Class.create(Character, {
 	// groups everything an urchin will do (e.g. grow arms, rotate, etc.)
 	step: function() {
 
-		// rotation, rotate all arms and body
-		if(this.rotateSpeed != 0){
+		if(this.active){
+				
+			
 
-			// increase all arms' angles by the rotate speed
-			for(var i=0; i<this.arms.length; i++){
-				this.arms[i].angle += this.rotateSpeed;
+			// rotation, rotate all arms and body
+			if(this.rotateSpeed != 0){
+
+				// increase all arms' angles by the rotate speed
+				for(var i=0; i<this.arms.length; i++){
+					this.arms[i].angle += this.rotateSpeed;
+				}
+
+				this.angle += this.rotateSpeed;
 			}
 
-			this.angle += this.rotateSpeed;
-		}
+			// moving, move all arms and body
+			if(this.speed > 0){
 
-		// moving, move all arms and body
-		if(this.speed > 0){
+			}
 
-		}
+			// growing arms
+			for(var i=0; i<this.arms.length; i++){
+				this.arms[i].grow();
+			}
 
-		// growing arms
-		for(var i=0; i<this.arms.length; i++){
-			this.arms[i].grow();
 		}
 
 	}
